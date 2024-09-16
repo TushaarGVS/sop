@@ -45,8 +45,8 @@
 
 %-TG: reduce the section fontsize.
 \renewcommand\section{\@startsection{section}{1}{\z@}%
-  {-3.5ex \@plus -1ex \@minus -.2ex}%-TG: spacing before sec title
-  {2.3ex \@plus.2ex}%-TG: spacing after title
+  {-1.5ex \@plus -1ex \@minus -.2ex}%-TG: spacing before sec title
+  {1ex \@plus.2ex}%-TG: spacing after title
   {\normalfont\bfseries}%-TG: font style
 }
 
@@ -74,6 +74,7 @@
 \RequirePackage{titlesec}
 \RequirePackage{subcaption}
 \RequirePackage{xspace}
+\RequirePackage{etoolbox}
 
 %-TG: footnotes, headers, footers, etc.
 \RequirePackage{fancyhdr}
@@ -84,6 +85,7 @@
 \RequirePackage{multicol}
 \RequirePackage{natbib}
 \bibliographystyle{unsrtnat}
+\RequirePackage{xurl}  %-TG: to break bib urls more gracefully
 
 \RequirePackage{enumitem}
 \setlist[enumerate,1]{label={(\alph*)}}
@@ -225,12 +227,23 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%-TG: attributions
+\newcommand{\acks}[1]{%
+    \ifblank{#1}{%
+        %-TG: no-op for blank/empty spaces
+    }{%
+        \paragraph{Acknowledgments.}{#1}%
+    }%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %-TG: two-col bibliography.
 \makeatletter
 \renewenvironment{thebibliography}[1]{%
     \clearpage%
     \begin{multicols}{2}[\section*{\refname}]%
-    \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
+        \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
         \list{\@biblabel{\@arabic\c@enumiv}}{%
             \settowidth\labelwidth{\@biblabel{#1}}%
             \leftmargin\labelwidth
@@ -245,11 +258,12 @@
         \@clubpenalty \clubpenalty
         \widowpenalty4000%
         \sfcode`\.\@m%
-}{%
+    }{%
     \def\@noitemerr{%
         \@latex@warning{Empty `thebibliography' environment}%
     }%
-    \endlist\end{multicols}%
+    \endlist%
+    \end{multicols}%
 }
 \makeatother
 

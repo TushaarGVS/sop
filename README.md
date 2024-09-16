@@ -16,11 +16,13 @@ Available options:
 Once you load the class, you can set program-specific variables as such:
 
 ```tex
-\college{Massachusetts Institute of Technology}
-\collegeabbr{MIT}
-\dept{Electrical Engineering and Computer Science}
-\deptabbr{EECS}
-\degree{PhD}
+\college{Massachusetts Institute of Technology}  %-TG: sets `\thecollege`
+\collegeabbr{MIT}  %-TG: sets `\thecollegeabbr`
+\dept{Electrical Engineering and Computer Science}  %-TG: sets `\thedept`
+\deptabbr{EECS}  %-TG: sets `\thedeptabbr`
+\degree{PhD}  %-TG: sets `\thedegree`
 ```
 
 Once set, you can use the variables as `\thecollege`, `\thecollegeabbr`, `\thedept`, `\thedeptabbr`, and `\thedegree`. If the abbreviations (e.g., `collegeabbr` and `deptabbr`) are unset, the associated variables default to their unabbreviated values. 
+
+Finally, use `\acks` to typeset acknowledgments: the command automatically ignores printing "Acknowledgments" section name when the input is empty.

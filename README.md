@@ -16,8 +16,11 @@ Available options:
 Once you load the class, you can set program-specific variables as such:
 
 ```tex
-\college{Cornell University}
-\program{PhD in Computer Science}
+\college{Massachusetts Institute of Technology}
+\collegeabbr{MIT}
+\dept{Electrical Engineering and Computer Science}
+\deptabbr{EECS}
+\degree{PhD}
 ```
 
-Once set, you can use the variables as `\thecollege` and `\theprogram`.
+Once set, you can use the variables as `\thecollege`, `\thecollegeabbr`, `\thedept`, `\thedeptabbr`, and `\thedegree`. If the abbreviations (e.g., `collegeabbr` and `deptabbr`) are unset, the associated variables default to their unabbreviated values. 

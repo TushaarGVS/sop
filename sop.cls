@@ -135,15 +135,48 @@
     \vspace{0.7em}\par%
 }
 
-%-TG: college and program specifics.
+%-TG: college specifics.
 \newcommand{\college}[1]{\newcommand{\@college}{#1}}
-\newcommand{\program}[1]{\newcommand{\@program}{#1}}
-%-TG: use "\thecollege" and "\theprogram" to refer to college/program specifics.
 \newcommand{\thecollege}{%
     \textcolor{\draftcolor}{\@college}\xspace%
 }
-\newcommand{\theprogram}{%
-    \textcolor{\draftcolor}{\@program}\xspace%
+%-TG: abbreviation of college (e.g., MIT for Massachusetts Institute of Technology)
+\newcommand{\collegeabbr}[1]{\newcommand{\@collegeabbr}{#1}}
+\newcommand{\thecollegeabbr}{%
+    \ifcsname @collegeabbr\endcsname%-TG: check if \@collegeabbr is defined
+        \ifx\@collegeabbr\@empty%-TG: check if \@collegeabbr is empty
+            \textcolor{\draftcolor}{\@college}\xspace%
+        \else%
+            \textcolor{\draftcolor}{\@collegeabbr}\xspace%
+        \fi
+    \else%-TG: \@collegeabbr is not defined
+        \textcolor{\draftcolor}{\@college}\xspace%
+    \fi%
+}
+
+%-TG: department specifics.
+\newcommand{\dept}[1]{\newcommand{\@dept}{#1}}
+\newcommand{\thedept}{%
+    \textcolor{\draftcolor}{\@dept}\xspace%
+}
+%-TG: abbreviation of department (e.g., CS for Computer Science)
+\newcommand{\deptabbr}[1]{\newcommand{\@deptabbr}{#1}}
+\newcommand{\thedeptabbr}{%
+    \ifcsname @deptabbr\endcsname%
+        \ifx\@deptabbr\@empty%
+            \textcolor{\draftcolor}{\@dept}\xspace%
+        \else%
+            \textcolor{\draftcolor}{\@deptabbr}\xspace%
+        \fi
+    \else
+        \textcolor{\draftcolor}{\@dept}\xspace%
+    \fi%
+}
+
+%-TG: degree specifics.
+\newcommand{\degree}[1]{\newcommand{\@degree}{#1}}
+\newcommand{\thedegree}{%
+    \textcolor{\draftcolor}{\@degree}\xspace%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

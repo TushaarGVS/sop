@@ -2,24 +2,34 @@
 %-TG: use option "cmr" to force "cmr" as the default font (instead of times).
 \documentclass[]{sop}
 
-\title{Is attention central to language modeling?}
+\input{config/imports}
+\input{config/commands}
+
+\title{Drawing linear-recurrence to the limit: \textit{Infinite} context modeling}
 
 \author{Tushaar Gangavarapu}
-\email{tg352@cornell.edu}
+\email{TG352@cornell.edu}
+
+%-TG: Include college-specific variables here. NOTE: class vars such as `\thecollege` aren't available before this point.
+\input{schools/03_stanford}
+% \input{schools/01_mit}
 
 \begin{document}
 \maketitle
 
-%-TG: motivation and background are common to all applications.
-\input{sop/1_motivation}
-\input{sop/2_background}
+%-TG: motivation and experience are common to all applications.
+\input{barebones/1_motivation}
+%-TG: include college-specific info.
+\thecollegespecificinfo
 
-%-TG: include college-specific info. NOTE: class vars such as `\thecollege` aren't available before this point.
-% \input{sop/apps/stanford}
-\input{sop/apps/mit}
+%-TG: I am specifically including research and teaching sections to the end as an "aux" material.
+\input{barebones/2_research}
+\input{barebones/3_teaching}
+
+\clearpage
 
 %-TG: acks, references, endnotes, etc.
-\input{sop/acks}
-\bibliography{references}
+\input{barebones/acks}
+\bibliography{references}  %-TG: bibstyle pre-set in sop.cls
 
 \end{document}

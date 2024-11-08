@@ -1,0 +1,60 @@
+I am drawn to these problems based on my research experiences, which are summarized below.
+
+%-TG: MambaByte work w/ Sasha.
+\paragraph{MambaByte.}
+
+Over the past year, we worked on MambaByte \citep{wang_mambabyte_2024}, an application of the Mamba recurrence \citep{gu_mamba_2024} for modeling byte-level sequences, under the guidance of Prof.~Sasha Rush.
+%
+Byte-level modeling offers robustness to noise and versatility in multilingual and multimodal settings, but byte sequences are $4\times$ longer (than subwords), making training and inference $4\times$ slower.
+%
+To enable compute-efficient training without representational compression, we employed the Mamba recurrence, which maintains a large hidden state independent of context length.
+%
+Given efficacy of Mamba to Transformers of similar or larger size, it effectively addressed our major efficiency challenges.
+%
+Despite the training benefits, byte-level decoding suffers from serial overheads from generating one byte at a time.
+%
+To address this, we adapted speculative decoding \citep{leviathan_fast_2023} to byte models by using a fast subword model for autoregressive drafting, followed by byte-level verification (through a parallel scan).
+
+We benchmarked MambaByte in fixed-parameter and fixed-compute settings on The Pile dataset.
+%
+Our research: (1) establishes the viability of token-free models with subword-like inference speedups through speculation, and (2) supports the hypothesis that recurrent models excel in tasks where storing all tokens is unnecessary, and information compression is advantageous.\footnote{This came up in an informal discussion at COLM 2024 with Junxiong~Wang, Prof.~Gu, and Prof.~Dao.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-TG: Mechanistic interpretability w/ Sasha, Hendrik.
+\paragraph{Understanding the role of recurrence.}
+
+This work with Hendrik~Strobelt and Prof.~Sasha~Rush investigates the role of recurrence in hybrid models.
+%
+Recent advances in mechanistic interpretability involve distilling model activations into ``clean'' features.
+%
+Building on this, we employ $k$-sparse autoencoders to distill hidden states in hybrid models---specifically RecurrentGemma-9B---into sparse, potentially one-dimensional, $\delta$-orthogonal features.
+%
+By expanding hidden states into (interpretable) features, we aim to explore how recurrence handles contextual information over time and whether it captures meaningful long-range dependencies.
+% 
+These insights could guide future designs that effectively integrate recurrence with attention to improve long-context modeling.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-TG: CGA-CMV work w/ Cristian.
+\paragraph{Conversational forecasting.}
+
+In this research, advised by Prof.~Cristian Danescu-Niculescu-Mizil, we are investigating conversational forecasting: predicting whether a conversation will escalate to a personal attack.
+%
+This task poses unique theoretical and computational challenges.
+%
+Unlike standard prediction, forecasting demands that the model continuously monitor escalating tension over time rather than evaluating individual utterances in isolation.
+%
+Additionally, since a conversation can derail at any point, the model must continuously forecast as the dialogue progresses.
+%
+The length of multi-turn conversations further complicates capturing long-range dynamics.
+
+Our experiments reveal that, for this task, compression and bidirectional modeling are far more beneficial than increasing model scale or compute. We also explored several key questions:
+%
+(1) Can we quantify forecasting uncertainty by simulating possible futures at each timestep using generative models?
+%
+(2) Can attention offer interpretable insights into the model's forecasts, aiding moderators with actionable explanations?
+%
+Finally, we ask: How do humans navigate conversational uncertainties, and do models handle these uncertainties in a manner similar to humans?
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

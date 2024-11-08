@@ -26,8 +26,8 @@
 
 \LoadClass[12pt,onecolumn]{article}
 \RequirePackage[%
-    letterpaper,%
-    margin=1in,%
+    a4paper,%
+    margin=0.8in,%
     showframe=False,%
 ]{geometry}
 
@@ -45,9 +45,9 @@
 
 %-TG: reduce the section fontsize.
 \renewcommand\section{\@startsection{section}{1}{\z@}%
-  {-1.5ex \@plus -1ex \@minus -.2ex}%-TG: spacing before sec title
-  {1ex \@plus.2ex}%-TG: spacing after title
-  {\normalfont\bfseries}%-TG: font style
+    {-1.5ex \@plus -1ex \@minus -.2ex}%-TG: spacing before sec title
+    {1ex \@plus.2ex}%-TG: spacing after title
+    {\normalfont\bfseries}%-TG: font style
 }
 
 %-TG: custom date format: mm/dd/yyyy ({hh}.{mm}am/pm).
@@ -57,13 +57,16 @@
 
 \RequirePackage[useregional]{datetime2}
 \DTMnewdatestyle{datefmt}{%
-  \renewcommand{\DTMdisplaydate}[4]{%
-    \number##2/\number##3/\number##1%
-  }%
+    \renewcommand{\DTMdisplaydate}[4]{%
+        \number##2/\number##3/\number##1%
+    }%
 }
 \DTMsetdatestyle{datefmt}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage[utf8]{inputenc}  %-TG: for accented chars
+\RequirePackage[T1]{fontenc}
 
 \RequirePackage{amssymb}
 \RequirePackage[reqno]{amsmath}
@@ -83,8 +86,8 @@
 
 %-TG: bibliography.
 \RequirePackage{multicol}
-\RequirePackage{natbib}
-\bibliographystyle{unsrtnat}
+\RequirePackage[round]{natbib}  %-TG: load with "round" brackets
+\bibliographystyle{abbrvnat}
 \RequirePackage{xurl}  %-TG: to break bib urls more gracefully
 
 \RequirePackage{enumitem}
@@ -118,6 +121,9 @@
 \setlength{\parskip}{0.5em}
 \setlength{\parindent}{0pt}
 
+%-TG: adjust spacing for \paragraph.
+\titlespacing*{\paragraph}{0pt}{2pt}{\medskipamount}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %-TG: \maketitle.
@@ -137,13 +143,17 @@
     \vspace{0.7em}\par%
 }
 
-%-TG: college specifics.
-\newcommand{\college}[1]{\newcommand{\@college}{#1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-TG: college name.
+\newcommand{\@college}{\texttt{\textbackslash college}}  %-TG: default
+\newcommand{\college}[1]{\renewcommand{\@college}{#1}}
 \newcommand{\thecollege}{%
     \textcolor{\draftcolor}{\@college}\xspace%
 }
-%-TG: abbreviation of college (e.g., MIT for Massachusetts Institute of Technology)
-\newcommand{\collegeabbr}[1]{\newcommand{\@collegeabbr}{#1}}
+%-TG: abbreviation of college name (e.g., MIT for Massachusetts Institute of Technology).
+\newcommand{\@collegeabbr}{\texttt{\textbackslash collegeabbr}}  %-TG: default
+\newcommand{\collegeabbr}[1]{\renewcommand{\@collegeabbr}{#1}}
 \newcommand{\thecollegeabbr}{%
     \ifcsname @collegeabbr\endcsname%-TG: check if \@collegeabbr is defined
         \ifx\@collegeabbr\@empty%-TG: check if \@collegeabbr is empty
@@ -156,13 +166,15 @@
     \fi%
 }
 
-%-TG: department specifics.
-\newcommand{\dept}[1]{\newcommand{\@dept}{#1}}
+%-TG: department name.
+\newcommand{\@dept}{\texttt{\textbackslash dept}}  %-TG: default
+\newcommand{\dept}[1]{\renewcommand{\@dept}{#1}}
 \newcommand{\thedept}{%
     \textcolor{\draftcolor}{\@dept}\xspace%
 }
-%-TG: abbreviation of department (e.g., CS for Computer Science)
-\newcommand{\deptabbr}[1]{\newcommand{\@deptabbr}{#1}}
+%-TG: abbreviation of department name (e.g., CS for Computer Science)
+\newcommand{\@deptabbr}{\texttt{\textbackslash deptabbr}}  %-TG: default
+\newcommand{\deptabbr}[1]{\renewcommand{\@deptabbr}{#1}}
 \newcommand{\thedeptabbr}{%
     \ifcsname @deptabbr\endcsname%
         \ifx\@deptabbr\@empty%
@@ -175,10 +187,82 @@
     \fi%
 }
 
-%-TG: degree specifics.
-\newcommand{\degree}[1]{\newcommand{\@degree}{#1}}
+%-TG: degree title.
+\newcommand{\@degree}{\texttt{\textbackslash degree}}  %-TG: default
+\newcommand{\degree}[1]{\renewcommand{\@degree}{#1}}
 \newcommand{\thedegree}{%
     \textcolor{\draftcolor}{\@degree}\xspace%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-TG: command for professor names (works like \cite).
+\newcommand{\@profs}{\texttt{\textbackslash profs}}
+\newcounter{profindex}  %-TG: counter for indexing professors.
+\newcommand{\profs}[1]{%
+    \setcounter{profindex}{0}
+    
+    \def\profsep{, }%-TG: separator between profs
+    \def\lastprofseptwo{\,and }%-TG: separator before the prof when only two profs are included
+    \def\lastprofsep{, and }%-TG: separator before the prof in all other cases
+    \def\profformat##1{%
+        \expandafter\gdef\csname prof\theprofindex\endcsname{Prof.~\ignorespaces##1}%
+        Prof.~\ignorespaces##1%
+    }
+
+    %-TG: counter to see how many profs. This is needed before reiterating again to ensure that we can use "and" before the last prof.
+    \newcounter{total}
+    \setcounter{total}{0}
+    \@for\profname:=#1\do{%
+        \stepcounter{total}%
+    }
+    
+    \newcounter{count}
+    \setcounter{count}{0}
+    \def\proflist{}%-TG: initialize list
+    \@for\profname:=#1\do{%
+        \stepcounter{count}%
+        \stepcounter{profindex}%
+        \ifx\proflist\empty%
+            \edef\proflist{\profformat{\profname}}%
+        \else%
+            \ifnum\value{count}=\value{total}%
+                %-TG: Handle "and" before the last name.
+                    \ifnum\value{total}=2%
+                        \edef\proflist{\proflist\lastprofseptwo\profformat{\profname}}%
+                    \else%
+                        \edef\proflist{\proflist\lastprofsep\profformat{\profname}}%
+                    \fi%
+            \else%
+                \edef\proflist{\proflist\profsep\profformat{\profname}}%
+            \fi%
+        \fi%
+    }%
+    \renewcommand{\@profs}{\emph{\proflist}}
+}
+\newcommand{\theprofs}{%
+    \textcolor{\draftcolor}{\@profs}\xspace%
+}
+%-TG: Command to reference professors by index; e.g., `\prof{1}`.
+\newcommand{\prof}[1]{\textcolor{\draftcolor}{\csname prof#1\endcsname}}
+
+%-TG: school-specific details, often included after motivation/background.
+\newcommand{\@collegespecificinfo}{%
+    \ifdraft%
+        \texttt{\textbackslash collegespecificinfo}%
+    \fi
+}  %-TG: default
+\newcommand{\collegespecificinfo}[1]{\renewcommand{\@collegespecificinfo}{#1}}
+\newcommand{\thecollegespecificinfo}{%
+    \textcolor{\draftcolor}{
+        \ifx\@collegespecificinfo\empty%
+            \ifdraft%
+                WARN: \texttt{\textbackslash collegespecificinfo} empty.%
+            \fi
+        \else%
+            \@collegespecificinfo\par\xspace
+        \fi
+    }\xspace%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -194,6 +278,21 @@
 \fancypagestyle{firstpage}
 {
    \fancyhf{}
+   \lhead{
+        %-TG: Display a warning message if in draft mode.
+        \ifdraft
+            %-TG: delayed access to \thecollegeabbr and \thedeptabbr.
+            \AfterEndPreamble{%
+                \vspace{0.5em}
+                \textcolor{\draftcolor}{%
+                    \fbox{\parbox{\textwidth}{%
+                        \centering
+                        NOTE: This is a draft for \textbf{\thecollegeabbr} \textbf{\thedeptabbr}. Compile with \texttt{final} option for camera-ready copy.
+                    }}%
+                }%
+            }%
+        \fi
+   }
    \rfoot{\small{\thepage}/\pageref{LastPage}}
    \renewcommand{\headrulewidth}{0pt}
 }
@@ -206,7 +305,7 @@
 }
 \rfoot{\small{\thepage}/\pageref{LastPage}}
 \renewcommand{\footrulewidth}{0pt}
-\setlength{\headsep}{25pt}
+\setlength{\headsep}{15pt}
 
 %-TG: first page doesn't need to include the header.
 \AtBeginDocument{\thispagestyle{firstpage}}
@@ -241,7 +340,8 @@
 %-TG: two-col bibliography.
 \makeatletter
 \renewenvironment{thebibliography}[1]{%
-    \clearpage%
+    %-TG: Don't explicitly clear the page.
+    % \clearpage%
     \begin{multicols}{2}[\section*{\refname}]%
         \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
         \list{\@biblabel{\@arabic\c@enumiv}}{%
@@ -272,9 +372,9 @@
 %-TG: insert "last modified" at the end of the document.
 \AtEndDocument{%
     \ifdraft%
-        (Last compiled: \textcolor{\draftcolor}{\today,~\ampmtime})%
+        (Last compiled: \textcolor{\draftcolor}{\today,~\ampmtime}.)%
     \else%
-        (Last compiled: \today)%
+        (Last compiled: \today.)%
     \fi%
 }
 

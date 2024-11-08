@@ -1,0 +1,38 @@
+%-TG: past motivation for linear-rnn models might not hold anymore.
+The motivation for linear-time models may be less compelling today, given the efficiency advancements in Transformers.
+%
+Are Transformers the endgame? I think not.
+%
+Are linear models? I'm unsure!\footnote{Sasha's ``Transformers in 2027'' bet: \url{https://www.isattentionallyouneed.com}.}
+
+%-TG: motivate the need for better models.
+As we become increasingly hardware-aware in advancing Transformers---through techniques like Flash-$\ast$ algorithms \citep{fu_flashfftconv_2023,shah_flashattention-3_2024} and compute-optimal training \citep{muennighoff_scaling_2023}---the previously prohibitive quadratic complexity of Transformers has become less of a limitation for pretraining.
+%
+The real ``brick wall,'' however, lies in high inference costs, especially for the latest Transformers (like GPT-4o), which may be employing implicit chain-of-thought with stepwise internalization.
+%
+Even with speculative decoding and KV-cache optimizations, relying on attention for very large contexts (e.g., $100$M tokens\footnote{LTM-2-mini handles $100$M context windows through a proprietary \textit{sequence-dimension algorithm} that may not rely entirely on attention: \url{https://magic.dev/blog/100m-token-context-windows}.}) is infeasible.
+
+Distilling pretrained Transformers to linear-recurrence models \citep{zhang_hedgehog_2024,wang_mamba_2024,zhang_lolcats_2024,bick_transformers_2024} seems promising.
+%
+However, it is uncertain if these distilled models retain the weaknesses of their base models, particularly in handling long contexts.
+%
+Moreover, the expressiveness of linear-recurrence models is limited by their fixed-size hidden memory \citet{jelassi_repeat_2024}.
+%
+The recently proposed Based model \citep{arora_simple_2024} builds on prior efforts by combining linear attention (for larger hidden states) with sliding-window attention for associative recall.
+%
+However, further evaluation is needed to assess its performance in long-context retrieval tasks (e.g., needle-in-a-haystack, hash-hop\footnote{HashHop long-context evaluation: \url{https://github.com/magicproduct/hash-hop}.}, etc.).
+%
+In my experience with needle-in-a-haystack evaluations, moderately-sized models, such as RecurrentGemma-9B (with linear recurrence using a hidden state of $4,096,$ and a local attention window of $2,048$ tokens), often struggle beyond $4\times$ the local attention window.
+%
+To this end, we need to devise mechanisms that reduce (token) storage redundancy (unlike Transformers) that support dynamic memory scaling.
+
+%-TG: what I wish to do.
+As a part of my \thedegree at \thecollegeabbr, I plan to focus on:
+\begin{enumerate}[itemsep=0pt, topsep=0pt]
+    \item analyzing the Pareto frontier of the context length vs. associative recall across varying hidden-state capacities, and
+    
+    \item developing models to push this frontier to achieve efficient and reliable long-context modeling.
+\end{enumerate}
+Designing new architectures will require understanding the limitations of current models. For instance, in hybrid models that combine attention and recurrence, it is essential to explore what (long-context) information persists across local attention boundaries. How would this change if the model could anticipate specific information needs in advance?\footnote{This is akin to adding a ``remember this'' to the prompt, instructing the model to retain specific information.}
+
+\par

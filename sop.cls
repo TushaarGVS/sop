@@ -27,7 +27,10 @@
 \LoadClass[12pt,onecolumn]{article}
 \RequirePackage[%
     a4paper,%
-    margin=0.8in,%
+    top=0.92in,%
+    left=0.8in,%
+    right=0.8in,%
+    bottom=0.75in,%
     showframe=False,%
 ]{geometry}
 
@@ -78,6 +81,7 @@
 \RequirePackage{subcaption}
 \RequirePackage{xspace}
 \RequirePackage{etoolbox}
+\RequirePackage{atbegshi}  %-TG: to change margins from page-2
 
 %-TG: footnotes, headers, footers, etc.
 \RequirePackage{fancyhdr}
@@ -133,14 +137,13 @@
 \newcommand{\Hrule}{\rule{\linewidth}{0.3mm}}
 
 \renewcommand{\maketitle}{%
-    \noindent%
-    \textbf{\@title}%
+    \noindent\textbf{\@title}%
     \\[2pt]
     \@author\,(\href{mailto:\@email}{\@email})
     \hfill%
     \\
     \Hrule%
-    \vspace{0.7em}\par%
+    \vspace{0em}\par%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -301,11 +304,11 @@
 \rhead{}
 \lhead{%
     \small{\@author\,(\href{mailto:\@email}{\@email})}%
-    \vspace{0.5em}%
+    \vspace{0.2em}%
 }
 \rfoot{\small{\thepage}/\pageref{LastPage}}
 \renewcommand{\footrulewidth}{0pt}
-\setlength{\headsep}{15pt}
+\setlength{\headsep}{10pt}
 
 %-TG: first page doesn't need to include the header.
 \AtBeginDocument{\thispagestyle{firstpage}}

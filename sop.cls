@@ -1,5 +1,5 @@
 %-TG: sop.cls
-%-TG: author: Tushaar Gangavarapu (not for distribution)
+%-TG: author: Tushaar Gangavarapu
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{sop}[2024/09/14 LaTeX class for typesetting statements for college applications]
@@ -81,7 +81,6 @@
 \RequirePackage{subcaption}
 \RequirePackage{xspace}
 \RequirePackage{etoolbox}
-\RequirePackage{atbegshi}  %-TG: to change margins from page-2
 
 %-TG: footnotes, headers, footers, etc.
 \RequirePackage{fancyhdr}

@@ -2,6 +2,8 @@
 %-TG: use option "cmr" to force "cmr" as the default font (instead of times).
 \documentclass[]{sop}
 
+%-TG: custom imports and commands.
+%-TG: this is commonly loaded for sop and cv (but it doesn't have to be).
 \input{config/imports}
 \input{config/commands}
 
@@ -11,8 +13,11 @@
 \email{TG352@cornell.edu}
 
 %-TG: Include college-specific variables here. NOTE: class vars such as `\thecollege` aren't available before this point.
-\input{schools/03_stanford}
+%-TG: load in preamble before `\begin{document}`.
 % \input{schools/01_mit}
+\input{schools/03_stanford}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 \maketitle
@@ -33,3 +38,5 @@
 \bibliography{references}  %-TG: bibstyle pre-set in sop.cls
 
 \end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

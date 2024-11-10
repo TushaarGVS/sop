@@ -27,12 +27,14 @@
 \LoadClass[12pt,onecolumn]{article}
 \RequirePackage[%
     a4paper,%
-    top=0.92in,%
-    left=0.8in,%
-    right=0.8in,%
-    bottom=0.66in,%
+    top=0.95in,bottom=0.5in,%
+    left=0.8in,right=0.8in,%
     showframe=False,%
 ]{geometry}
+
+%-TG: set header and footer sep values.
+\setlength{\headsep}{10pt}
+\setlength{\footskip}{20pt}
 
 %-TG: set default font to "times".
 \ifcmr%
@@ -307,7 +309,6 @@
 }
 \rfoot{\small{\thepage}/\pageref{LastPage}}
 \renewcommand{\footrulewidth}{0pt}
-\setlength{\headsep}{10pt}
 
 %-TG: first page doesn't need to include the header.
 \AtBeginDocument{\thispagestyle{firstpage}}

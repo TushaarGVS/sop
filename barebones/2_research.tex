@@ -3,59 +3,68 @@ I am drawn to these problems based on my research experiences, which are summari
 %-TG: MambaByte work w/ Sasha.
 \paragraph{MambaByte.}
 
-Over the past year, we worked on MambaByte \citep{wang_mambabyte_2024}, an application of the Mamba recurrence \citep{gu_mamba_2024} for modeling byte-level sequences, under the guidance of Prof.~Sasha Rush.
+Over the past year, I worked on MambaByte \citep{wang_mambabyte_2024}, an application of the Mamba recurrence \citep{gu_mamba_2024} to byte sequences, under Prof.~Sasha~Rush.
 %
-Byte-level modeling offers robustness to noise and versatility in multilingual and multimodal settings, but byte sequences are $4\times$ longer (than subwords), making training and inference $4\times$ slower.
+Byte-level modeling is robust to noise and favorable in multilingual and multimodal settings, but computationally expensive due to longer sequence lengths.
 %
-To enable compute-efficient training without representational compression, we employed the Mamba recurrence, which maintains a large hidden state independent of context length.
+To maintain training efficiency without input compression, we used the Mamba model, which evolves a large, fixed-size hidden state.
 %
-Given efficacy of Mamba to Transformers of similar or larger size, it effectively addressed our major efficiency challenges.
+Despite training improvements, byte-level decoding remains slower.
 %
-Despite the training benefits, byte-level decoding suffers from serial overheads from generating one byte at a time.
+To mitigate this, we adapted speculative decoding \citep{leviathan_fast_2023}, using a fast subword model for drafting, followed by byte-level verification via parallel scan.
 %
-To address this, we adapted speculative decoding \citep{leviathan_fast_2023} to byte models by using a fast subword model for autoregressive drafting, followed by byte-level verification (through a parallel scan).
+To reduce memory I/O overhead, Mamba avoids materializing hidden states in HBM, preventing restarts from corrected bytes.
+%
+We extended the CUDA kernel to run the parallel scan twice: once to identify the correction point, and again to extract the hidden state before correction.
+%
+This allowed MambaByte to achieve speedups comparable to the Mamba subword model.
 
-We benchmarked MambaByte in fixed-parameter and fixed-compute settings on The Pile dataset.
+Performance comparison across models also required care---patching models use fewer FLOPs per byte, while having significantly more parameters.
 %
-Our research: (1) establishes the viability of token-free models with subword-like inference speedups through speculation, and (2) supports the hypothesis that recurrent models excel in tasks where storing all tokens is unnecessary, and information compression is advantageous.
+To this end, we benchmarked MambaByte in both parameter-matched and compute-matched settings.
+%
+Our research: (1) demonstrates the viability of token-free models with subword-like inference speedups, and (2) reaffirms that recurrent models excel in tasks where storing all tokens is unnecessary and information compression is more beneficial.
+%
 % \footnote{This came up in an informal discussion at COLM 2024 with Junxiong~Wang, Prof.~Albert~Gu, and Prof.~Tri~Dao.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %-TG: Mechanistic interpretability w/ Sasha, Hendrik.
-\paragraph{Understanding the role of recurrence.}
+\paragraph{Recurrence in hybrid models.}
 
-In this work with Hendrik~Strobelt and Prof.~Sasha~Rush, we investigate the role of recurrence in hybrid models.
+In this work with Hendrik~Strobelt and Prof.~Sasha~Rush, I am investigating the role of recurrence in hybrid models.
 %
-Recent advances in mechanistic interpretability involve distilling model activations into ``clean'' features.
+Recent advances in mechanistic interpretability focus on distilling model activations into ``clean'' features.
 %
 Building on this, we employ $k$-sparse autoencoders to distill hidden states in hybrid models---specifically RecurrentGemma-9B---into sparse, potentially one-dimensional, $\delta$-orthogonal features.
 %
-By expanding hidden states into (interpretable) features, we aim to explore how recurrence handles contextual information over time and whether it captures meaningful long-range dependencies.
+By expanding hidden states into (interpretable) features, we aim to explore how recurrence processes contextual information over time and whether it captures meaningful long-range dependencies.
 % 
-These insights could guide future designs that effectively integrate recurrence with attention to improve long-context modeling.
+These insights could inform the design of future models that better integrate recurrence and attention for improved long-context modeling.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %-TG: CGA-CMV work w/ Cristian.
 \paragraph{Conversational forecasting.}
 
-In this research, advised by Prof.~Cristian Danescu-Niculescu-Mizil, we are investigating conversational forecasting: predicting whether a conversation will escalate to a personal attack.
+In my research with Prof.~Cristian Danescu-Niculescu-Mizil, I investigate conversational forecasting: predicting when a conversation may escalate into a personal attack.
 %
-This task poses unique theoretical and computational challenges.
+This task is challenging as it requires understanding conversational dynamics rather than isolated utterances.
 %
-Unlike standard prediction, forecasting demands that the model continuously monitor escalating tension over time rather than evaluating individual utterances in isolation.
+The multi-turn nature demands efficient modeling of lengthy contexts---a limitation for standard Transformers.
 %
-Additionally, since a conversation can derail at any point, the model must continuously forecast as the dialogue progresses.
-%
-The length of multi-turn conversations further complicates capturing long-range dynamics.
+Additionally, real-time predictions with each new reply require minimizing repeated computations as the context grows.
 
-Our experiments reveal that, for this task, compression and bidirectional modeling are far more beneficial than increasing model scale or compute. We also explored several key questions:
+Our experiments show that large generative models (e.g., GPT-$4$o) struggle with this task, even with full context, while smaller recurrent and bidirectional models perform more effectively, demonstrating their strength in continuous context analysis.
 %
-(1) Can we quantify forecasting uncertainty by simulating possible futures at each timestep using generative models?
+We also examined:
 %
-(2) Can attention offer interpretable insights into the model's forecasts, aiding moderators with actionable explanations?
+(1) Simulating future conversational paths: We found low variability in simulations, indicating that models struggle to capture diverse outcomes.
 %
-Finally, we ask: How do humans navigate conversational uncertainties, and do models handle these uncertainties in a manner similar to humans?
+(2) Attention to understand model behavior: Attention often failed to provide meaningful explanations, especially as the context length increased.
+%
+These findings highlight the need for models that can better handle long-range context and conversational dynamics.
+%
+% Finally, we ask: How do humans navigate conversational uncertainties, and do models handle these uncertainties in a manner similar to humans?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

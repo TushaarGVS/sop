@@ -30,7 +30,7 @@
     top=0.92in,%
     left=0.8in,%
     right=0.8in,%
-    bottom=0.75in,%
+    bottom=0.66in,%
     showframe=False,%
 ]{geometry}
 

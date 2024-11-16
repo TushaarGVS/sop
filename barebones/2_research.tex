@@ -1,65 +1,80 @@
+%-JPC: I feel like before you get into the details of each project, you first need a single high-level summary that explicitly states how each project ties in to your research interests. As someone who's definitely not very well versed in this area, the project descriptions were quite dense (which is perhaps somewhat unavoidable) and I felt myself having to work to think about how each project is related to the actual thesis of your statement - and you never want to make the reader do extra work!
+
 I am drawn to these problems based on my research experiences, which are summarized below.
 
 %-TG: MambaByte work w/ Sasha.
-\paragraph{MambaByte.}
+\paragraph{MambaByte: Efficient byte-level sequence modeling.}
 
-Over the past year, I worked on MambaByte \citep{wang_mambabyte_2024}, an application of the Mamba recurrence \citep{gu_mamba_2024} to byte sequences, under Prof.~Sasha~Rush.
+I worked on MambaByte \citep{wang_mambabyte_2024}, an application of the Mamba model \citep{gu_mamba_2024} to byte sequences, under Prof.~Sasha Rush.
 %
-Byte-level modeling is robust to noise and favorable in multilingual and multimodal settings, but computationally expensive due to longer sequence lengths.
+Byte-level modeling is robust to noise and advantageous in multilingual and multimodal settings but computationally expensive due to longer sequence lengths.
 %
-To maintain training efficiency without input compression, we used the Mamba model, which evolves a large, fixed-size hidden state.
+To address this,
 %
-Despite training improvements, byte-level decoding remains slower.
+(a) for efficient training, we used the Mamba recurrence to evolve a large, fixed-size hidden state without input compression, and
 %
-To mitigate this, we adapted speculative decoding \citep{leviathan_fast_2023}, using a fast subword model for drafting, followed by byte-level verification via parallel scan.
+(b) for fast inference, we adapted speculative decoding \citep{leviathan_fast_2023}, using a fast subword model for drafting, followed by byte-level verification via parallel scan.
+
+\textit{Challenges:}
 %
-To reduce memory I/O overhead, Mamba avoids materializing hidden states in HBM, preventing restarts from corrected bytes.
+Speculative decoding, when implemented naively, requires materializing all hidden states in HBM to enable restarts from corrected bytes, leading to substantial overheads.
 %
-We extended the CUDA kernel to run the parallel scan twice: once to identify the correction point, and again to extract the hidden state before correction.
+To address this, we extended the CUDA kernel to perform two parallel scans: one to identify the correction point and another to extract the hidden state before correction.
 %
 This allowed MambaByte to achieve speedups comparable to the Mamba subword model.
+%
+Performance comparison across models also required care---patching models use fewer FLOPs per byte while having significantly more parameters.
+%
+To this end, we benchmarked MambaByte in both parameter- and compute-matched settings.
 
-Performance comparison across models also required care---patching models use fewer FLOPs per byte, while having significantly more parameters.
+Our work:
 %
-To this end, we benchmarked MambaByte in both parameter-matched and compute-matched settings.
+(1) demonstrates the viability of byte models with subword-like inference speedups, and
 %
-Our research: (1) demonstrates the viability of token-free models with subword-like inference speedups, and (2) reaffirms that recurrent models excel in tasks where storing all tokens is unnecessary and information compression is more beneficial.
-%
-% \footnote{This came up in an informal discussion at COLM 2024 with Junxiong~Wang, Prof.~Albert~Gu, and Prof.~Tri~Dao.}
+(2) highlights the strengths of recurrent models in tasks requiring efficient information compression.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %-TG: Mechanistic interpretability w/ Sasha, Hendrik.
 \paragraph{Recurrence in hybrid models.}
 
-In this work with Hendrik~Strobelt and Prof.~Sasha~Rush, I am investigating the role of recurrence in hybrid models.
+In this work with Hendrik~Strobelt and Prof.~Sasha~Rush, I am investigating the role of recurrence in RecurrentGemma-$9$B, a hybrid model that combines local attention with linear recurrence.
 %
-Recent advances in mechanistic interpretability focus on distilling model activations into ``clean'' features.
+The recurrent state serves as memory, passing information across local attention windows.
 %
-Building on this, we employ $k$-sparse autoencoders to distill hidden states in hybrid models---specifically RecurrentGemma-9B---into sparse, potentially one-dimensional, $\delta$-orthogonal features.
+Understanding the features stored in this memory is crucial for improving long-range capabilities beyond the local window, especially in tasks like needle-in-a-haystack retrieval.
 %
-By expanding hidden states into (interpretable) features, we aim to explore how recurrence processes contextual information over time and whether it captures meaningful long-range dependencies.
-% 
-These insights could inform the design of future models that better integrate recurrence and attention for improved long-context modeling.
+To explore this, we use $k$-sparse autoencoders to extract sparse, potentially one-dimensional, $\delta$-orthogonal features from the recurrent hidden states.
+%
+This allows us to analyze how recurrence processes contextual information over time and whether it encodes meaningful long-range dependencies.
+
+These findings aim to inform the design of future models that better integrate recurrence and attention for improved long-context modeling.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%-JPC: Perhaps this is somewhat shamelessly self-promoting, but I feel like you may want to cite one of the existing forecasting papers here (even though it does not have your name on it). Even with your admittedly good one-sentence description, some readers may be unclear on what "conversational forecasting" is, and they may want a paper to refer to for more details\
+%-JPC: 
+%-JPC: "Simulating future conversational paths: We found low variability in simulations, indicating that models struggle to capture diverse outcomes."
+%-JPC: This part doesn't seem super relevant to your overall thesis about efficient long-context modeling? Unless I'm missing something (in which case there's a good chance it needs to be made more clear)
+
 %-TG: CGA-CMV work w/ Cristian.
-\paragraph{Conversational forecasting.}
+\paragraph{Conversational forecasting: Modeling long-context dynamics.}
 
-In my research with Prof.~Cristian Danescu-Niculescu-Mizil, I investigate conversational forecasting: predicting when a conversation may escalate into a personal attack.
+In my research with Prof.~Jonathan Chang and Prof.~Cristian Danescu-Niculescu-Mizil, I investigate conversational forecasting \citep{chang_trouble_2019}: predicting when a conversation may escalate into a personal attack.
 %
-This task is challenging as it requires understanding conversational dynamics rather than isolated utterances.
+This task is challenging as it requires understanding multi-turn conversational dynamics and efficiently modeling lengthy contexts---a limitation for standard Transformers.
 %
-The multi-turn nature demands efficient modeling of lengthy contexts---a limitation for standard Transformers.
-%
-Additionally, real-time predictions with each new reply require minimizing repeated computations as the context grows.
+Moreover, real-time predictions with each new reply require minimizing repeated computations as the context grows, further emphasizing the need for efficiency.
 
-Our experiments show that large generative models (e.g., GPT-$4$o) struggle with this task, even with full context, while smaller recurrent and bidirectional models perform more effectively, demonstrating their strength in continuous context analysis.
+Our experiments show that large generative models (e.g., GPT-$4$o) struggle with this task, even with full context.
 %
-We also examined:
+In contrast, smaller recurrent and bidirectional models perform more effectively, demonstrating their strength in continuous context analysis.
 %
-(1) Simulating future conversational paths: We found low variability in simulations, indicating that models struggle to capture diverse outcomes.
+We also explored:
+%
+(1) Simulating future conversational paths: At each timestep, we sampled multiple next utterances and found low variability in their predictions, suggesting that models struggle to capture diverse outcomes.
+%
+As the conversation lengthened, these simulations increasingly resembled the nearest past utterances, highlighting limitations in long-context processing.
 %
 (2) Attention to understand model behavior: Attention often failed to provide meaningful explanations, especially as the context length increased.
 %

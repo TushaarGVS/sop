@@ -1,0 +1,70 @@
+I am drawn to these problems based on my research experiences, which are summarized below.
+
+%-TG: MambaByte work w/ Sasha.
+\paragraph{MambaByte.}
+
+Over the past year, I worked on MambaByte \citep{wang_mambabyte_2024}, an application of the Mamba recurrence \citep{gu_mamba_2024} to byte sequences, under Prof.~Sasha~Rush.
+%
+Byte-level modeling is robust to noise and favorable in multilingual and multimodal settings, but computationally expensive due to longer sequence lengths.
+%
+To maintain training efficiency without input compression, we used the Mamba model, which evolves a large, fixed-size hidden state.
+%
+Despite training improvements, byte-level decoding remains slower.
+%
+To mitigate this, we adapted speculative decoding \citep{leviathan_fast_2023}, using a fast subword model for drafting, followed by byte-level verification via parallel scan.
+%
+To reduce memory I/O overhead, Mamba avoids materializing hidden states in HBM, preventing restarts from corrected bytes.
+%
+We extended the CUDA kernel to run the parallel scan twice: once to identify the correction point, and again to extract the hidden state before correction.
+%
+This allowed MambaByte to achieve speedups comparable to the Mamba subword model.
+
+Performance comparison across models also required care---patching models use fewer FLOPs per byte, while having significantly more parameters.
+%
+To this end, we benchmarked MambaByte in both parameter-matched and compute-matched settings.
+%
+Our research: (1) demonstrates the viability of token-free models with subword-like inference speedups, and (2) reaffirms that recurrent models excel in tasks where storing all tokens is unnecessary and information compression is more beneficial.
+%
+% \footnote{This came up in an informal discussion at COLM 2024 with Junxiong~Wang, Prof.~Albert~Gu, and Prof.~Tri~Dao.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-TG: Mechanistic interpretability w/ Sasha, Hendrik.
+\paragraph{Recurrence in hybrid models.}
+
+In this work with Hendrik~Strobelt and Prof.~Sasha~Rush, I am investigating the role of recurrence in hybrid models.
+%
+Recent advances in mechanistic interpretability focus on distilling model activations into ``clean'' features.
+%
+Building on this, we employ $k$-sparse autoencoders to distill hidden states in hybrid models---specifically RecurrentGemma-9B---into sparse, potentially one-dimensional, $\delta$-orthogonal features.
+%
+By expanding hidden states into (interpretable) features, we aim to explore how recurrence processes contextual information over time and whether it captures meaningful long-range dependencies.
+% 
+These insights could inform the design of future models that better integrate recurrence and attention for improved long-context modeling.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-TG: CGA-CMV work w/ Cristian.
+\paragraph{Conversational forecasting.}
+
+In my research with Prof.~Cristian Danescu-Niculescu-Mizil, I investigate conversational forecasting: predicting when a conversation may escalate into a personal attack.
+%
+This task is challenging as it requires understanding conversational dynamics rather than isolated utterances.
+%
+The multi-turn nature demands efficient modeling of lengthy contexts---a limitation for standard Transformers.
+%
+Additionally, real-time predictions with each new reply require minimizing repeated computations as the context grows.
+
+Our experiments show that large generative models (e.g., GPT-$4$o) struggle with this task, even with full context, while smaller recurrent and bidirectional models perform more effectively, demonstrating their strength in continuous context analysis.
+%
+We also examined:
+%
+(1) Simulating future conversational paths: We found low variability in simulations, indicating that models struggle to capture diverse outcomes.
+%
+(2) Attention to understand model behavior: Attention often failed to provide meaningful explanations, especially as the context length increased.
+%
+These findings highlight the need for models that can better handle long-range context and conversational dynamics.
+%
+% Finally, we ask: How do humans navigate conversational uncertainties, and do models handle these uncertainties in a manner similar to humans?
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,47 @@
+%-TG: past motivation for linear-rnn models might not hold anymore.
+%-JPC: Speaking personally, I really enjoy the informal, tongue-in-cheek tone of this opening paragraph. That said, I can't guarantee that every professor on an admission committee will appreciate it. This is something you might want to run by some other people (especially more senior faculty) to get a sense of how it's likely to be received. A somewhat more work-intensive option is to customize each statement based on what you know about the faculty who will likely be reading it (e.g., if you're specifically targeting someone at Stanford who you know is a pretty fun-loving person you might keep this in for the Stanford statement, but take it out of a different statement for another school where you know the person you are targeting is more of a serious type)
+The motivation for linear-time models may be less compelling today, given the efficiency advancements in Transformers.
+%
+Are Transformers the endgame?\footnote{Sasha's ``Transformers in 2027'' bet: \url{https://www.isattentionallyouneed.com}.} I think not.
+%
+Are linear models? I'm unsure!
+
+%-TG: motivate the need for better models.
+As we become increasingly hardware-aware in advancing Transformers---through techniques like Flash-$\ast$ algorithms \citep{fu_flashfftconv_2023,shah_flashattention-3_2024} and compute-optimal training \citep{muennighoff_scaling_2023}---the previously prohibitive quadratic complexity of Transformers has become less of a limitation for pretraining.
+% 
+%-JPC: Is there a reason you need to call out o1 specifically? It makes things a bit awkward since, with o1 not being open source, you're forced to *speculate* that it uses CoT. But it seems to me like the *actual* point you're trying to make here is that modern techniques such as CoT involve larger and larger context sizes and that this running up against practical limitations. In which case it may be more effective to pick a different model that is known to employ CoT, or just not mention any specific model and just make your point about CoT directly.
+% The real ``brick wall,'' however, lies in high inference costs, especially for the latest Transformers like OpenAI o$1$, which may be employing implicit chain-of-thought (CoT) with stepwise internalization.
+The real ``brick wall,'' however, lies in high inference costs, especially for the latest Transformers that employ implicit chain-of-thought (CoT) with stepwise internalization.
+%
+Even with speculative decoding and KV-cache optimizations, relying on attention for very large contexts (e.g., $100$M tokens\footnote{LTM-$2$-mini handles $100$M context windows through a proprietary \textit{sequence-dimension algorithm} that may not rely entirely on attention: \url{https://magic.dev/blog/100m-token-context-windows}.}) is infeasible.
+
+Distilling pretrained Transformers to linear-recurrence models \citep{zhang_hedgehog_2024,wang_mamba_2024,zhang_lolcats_2024,bick_transformers_2024} seems promising.
+%
+However, it is uncertain if these distilled models retain the weaknesses of their base models, particularly in handling long contexts.
+%
+Moreover, the expressiveness of linear-recurrence models is limited by their fixed-size hidden memory \citet{jelassi_repeat_2024}.
+%
+The recently proposed Based model \citep{arora_simple_2024} builds on prior efforts by combining linear attention for larger hidden states with sliding-window attention for associative recall.
+%
+However, further evaluation is needed to assess its performance in long-context retrieval tasks (e.g., needle-in-a-haystack, hash-hop\footnote{HashHop long-context evaluation: \url{https://github.com/magicproduct/hash-hop}.}, etc.).
+%
+In our experiments with needle-in-a-haystack evaluations, moderately-sized models, such as RecurrentGemma-$9$B (with linear recurrence using a hidden state of $4,096$, and a local attention window of $2,048$ tokens), often struggle beyond $4\times$ the local attention window.
+%
+To this end, we need to devise mechanisms that reduce token storage redundancy (unlike Transformers) that support dynamic memory scaling.
+
+%-TG: what I wish to do.
+%-JPC: So this is a bit of advice I've received numerous times throughout my career, and which will likely serve you well too throughout your future writing: in any personal statement (whether that be for a PhD program, a job, or a grant), it's really important to state *near the beginning* what it is that you work on. This is for two reasons: one is that it turns out humans read things from top to bottom so you really want the "first impression" the reader gets to be "this guy is working on cool stuff", and another reason is that stating your goals upfront helps give structure and context to the rest of the statement. By contrast, in this statement, the first mention of what *you* are doing is buried under two long paragraphs of background and prior work; by the time the reader gets here, it is likely that they are completely lost (especially if they don't work directly in your area) and that is a terrible first impression to give!
+%-JPC: My concrete advice would be to leverage the playful first mini-paragraph that you have, and expand it into a more general statement of your research goals. So you don't think that Transformers are the endgame, so what does this mean? It means you're going to develop models to push the Pareto frontier of context length vs associative recall!
+As a part of my \thedegree at \thecollegeabbr, I plan to focus on:
+\begin{enumerate}[itemsep=-2pt, topsep=-1pt]
+    \item analyzing the Pareto frontier of the context length vs. associative recall across varying hidden-state capacities, and
+    
+    \item developing models to push this frontier to achieve efficient and reliable long-context modeling.
+\end{enumerate}
+%-JPC: See, this here would have been a perfect transition sentence to lead the user *into* the giant background paragraphs you give above. So the order of things here should really be
+% 1. Opening section that lays out your research interests
+% 2. This sentence, or something like it, to act as a transition into talking about limitations of current models
+% 3. The big background paragraphs you've written
+Designing new architectures will require understanding the limitations of current models. For instance, in hybrid models that combine attention and recurrence, it is essential to explore what long-context information persists across local attention boundaries. How would this change if the model could anticipate specific information needs in advance?\footnote{This is akin to adding a ``remember this'' to the prompt, instructing the model to retain specific information.}
+
+\par

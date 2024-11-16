@@ -24,20 +24,18 @@
 
 %-TG: motivation and experience are common to all applications.
 \input{barebones/1_motivation}
-\input{barebones/2_research}
-
-%-JPC: So overall the flow feels like research -> teaching (briefly) -> back to research. I wonder if one way to address this is to put this paragraph *earlier*, before you start getting into the details of your research (since the earlier parts of the statement are more "about you" which fits well with talking about your passion for teaching).
-\rrule
-\input{barebones/3_teaching}
-
-\input{barebones/4_conclusion}
-
 %-TG: include college-specific info.
 %-JPC: I typically see this paragraph closer to the end of the statement, since otherwise the transition back into talking about your own work is jarring. But my knowledge is way out of date, so maybe things have changed and it's more normal to put these paragraphs near the start now - might be good to get feedback from others who have applied more recently to PhD programs. In any case, if this paragraph is going to stay where it is, it needs a stronger transition to explicitly connect to the work you're going to discuss (e.g, "These professors' research agendas contain strong connections to my own work, which I now proceed to discuss")
 \thecollegespecificinfo
 
+%-TG: I am specifically including research and teaching sections to the end as an "aux" material.
+\input{barebones/2_research}
+\input{barebones/3_teaching}
+
+\input{barebones/4_conclusion}
+
 %-TG: acks, references, endnotes, etc.
-% \clearpage
+\clearpage
 \input{barebones/acks}
 \bibliography{references}  %-TG: bibstyle pre-set in sop.cls
 

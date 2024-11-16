@@ -1,0 +1,16 @@
+Here's some notes (via PDF annotations) on your SOP!
+tushaar_sop.pdf
+
+Given that your research is somewhat outside my area of expertise, I didn't focus so much on critiquing the technical parts (other than conversational forecasting, which I'd like to think I know a little bit about :))
+
+Instead, my comments mostly focus on structure and how you can make your statement flow better and give a better first impression to the reader (first impressions matter!)
+
+More details are in the annotations and I encourage you to read them, but here are some high level takeaways:
+
+1. This is a bit of advice I've received numerous times and now I pass on to you for all your future writing (be they for PhD applications, job applications, or grants): anytime you write a personal statement, you really should try to start by explaining what your research is about. I think your current statement falls into a common "noob trap" which is to first discuss a whole bunch of background work in detail (it's like being a peacock - "look at my bright feathers, i.e., how well-read I am!") and only after that make a concrete statement about your own research interests, which ends up being buried under a sea of text. In the comments, I give some ideas for how to fix this
+
+2. You give very nice summaries of your research projects, but before this, I think you really need a single high-level summary that, in one sentence for each project, foreshadows how each project relates to your overall research interest of efficient and reliable context modeling. The individual project summaries are quite dense (perhaps unavoidable) and a reader (especially one less aligned with your specific area) can easily get lost in the details and forget the overall point you were trying to make (missing the forest for the trees, so to speak)
+
+3. I really appreciate the bit about your passion for teaching...but right now it feels very awkwardly positioned (since the paragraphs directly before and after it are about research, it ends up feeling like a weird tangent). Perhaps a more natural place for it is earlier in the statement, since that's when you are more in the mode of saying things about yourself
+
+My other bit of advice is to make sure to get feedback from as many people as possible. Everyone brings different perspectives and may have different ways to improve the statement (which can sometimes contradict each other, but that's neither here nor there)

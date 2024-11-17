@@ -44,8 +44,8 @@
     %-TG: no-op; load "cmr".
 \else%
     \ifhelvet%
-        \RequirePackage{helvet}
-        \renewcommand{\familydefault}{\sfdefault}
+        \RequirePackage[scaled=0.9]{helvet}
+        \renewcommand*\familydefault{\sfdefault}
     \else%
         \RequirePackage{times}
     \fi%

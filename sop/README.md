@@ -24,7 +24,6 @@ An example usage is as follows:
 %-TG: Include college-specific variables here.
 %-TG: NOTE: class vars such as `\thecollege` aren't available before this point.
 %-TG: load in preamble before `\begin{document}`.
-%-TG:
 \input{schools/specific_school_file}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -47,3 +46,9 @@ An example usage is as follows:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ```
+
+---
+
+## Notes
+
+Feedback on my statement from various experts (and friends/mentors) are gathered in `sop/feedback` (and applies to most writing beyond the SOP itself).

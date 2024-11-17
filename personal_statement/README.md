@@ -47,3 +47,10 @@ An example usage is as follows:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ```
+
+---
+
+## Notes, resources, etc.
+
+* Personal statement is different from SOP: https://old.reddit.com/r/gradadmissions/comments/a0f4nh/how_to_write_a_personal_statement_after_you_have/eahah1b/.
+* See Jonathan's job application teaching and DEI statements: https://github.com/jpwchang/jpc-job-apps-2023.

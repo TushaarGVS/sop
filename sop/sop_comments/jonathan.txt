@@ -1,5 +1,5 @@
 Here's some notes (via PDF annotations) on your SOP!
-tushaar_sop.pdf
+<see jonathan_annotations.pdf>
 
 Given that your research is somewhat outside my area of expertise, I didn't focus so much on critiquing the technical parts (other than conversational forecasting, which I'd like to think I know a little bit about :))
 
@@ -14,3 +14,8 @@ More details are in the annotations and I encourage you to read them, but here a
 3. I really appreciate the bit about your passion for teaching...but right now it feels very awkwardly positioned (since the paragraphs directly before and after it are about research, it ends up feeling like a weird tangent). Perhaps a more natural place for it is earlier in the statement, since that's when you are more in the mode of saying things about yourself
 
 My other bit of advice is to make sure to get feedback from as many people as possible. Everyone brings different perspectives and may have different ways to improve the statement (which can sometimes contradict each other, but that's neither here nor there)
+
+---
+
+Comments on moving the teaching paragraph:
+

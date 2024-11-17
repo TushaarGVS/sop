@@ -1,0 +1,49 @@
+(Yann's messages transcribed using some software by Barry.)
+
+Excluding the first audio msg:
+
+Let me help organize this transcribed audio message, which appears to be feedback on a written document. I'll break it down into main points and concerns:
+
+1	Technical Content Feedback:
+	•	Discussion about "GT 40 step wise internalization" and "implicit chain"
+	•	Confusion about O(1) notation/optimization discussion
+	•	Question about why certain factors are described as implicit when they seem explicit
+	•	Notes that "step wise internalization" seems unfamiliar as a technical term
+
+2	Writing Style and Structure Concerns:
+    A. Parentheses Usage:
+    	•	Questions the necessity of parentheses throughout the document
+    	•	Suggests content in parentheses could stand alone in the text
+    	•	Recommends removing parentheses to make points stronger
+    B. Tone and Academic Style:
+    	•	Identifies certain parts as too informal/blog-like
+    	•	Notes "in my experience" sections feel too anecdotal
+    	•	Suggests making it more academic by:
+        	◦	Adding specific references to papers
+        	◦	Including experimental results
+        	◦	Being more precise with claims
+
+3	Introductory Section Feedback:
+	•	Questions whether first sentence properly introduces all stages
+	•	Suggests strengthening opening by:
+    	◦	Making author involvement clearer
+    	◦	Starting with "we aim to explore" rather than current phrasing
+    	◦	Being more direct about collaborative nature ("we" instead of passive voice)
+	
+4	Conclusion Recommendations:
+	•	Remove "a little scared" phrase
+	•	Make final sentence more impactful ("punchier")
+	•	Current ending feels flat
+	•	Suggests bookending document with strong opening and closing statements
+
+5	General Observations:
+	•	Overall positive assessment of coherence and flow
+	•	Acknowledges document supports main arguments well
+	•	Notes viewing links is challenging (reviewer is on phone)
+	•	Identifies possible bleeding of blog-writing style into academic writing
+	
+6	Next Steps:
+	•	Requests another draft after revisions
+	•	Maintains supportive tone while offering constructive criticism
+
+The message concludes with a casual "peace peace" sign-off, suggesting an informal relationship between reviewer and author.

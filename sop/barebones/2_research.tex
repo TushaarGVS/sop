@@ -15,7 +15,7 @@ To address this,
 %
 (b) for fast inference, we adapted speculative decoding \citep{leviathan_fast_2023}, using a fast subword model for drafting, followed by byte-level verification via parallel scan.
 
-\textit{Challenges:}
+\textit{Challenges}:
 %
 Speculative decoding, when implemented naively, requires materializing all hidden states in HBM to enable restarts from corrected bytes, leading to substantial overheads.
 %
@@ -27,7 +27,7 @@ Performance comparison across models also required care---patching models use fe
 %
 To this end, we benchmarked MambaByte in both parameter- and compute-matched settings.
 
-Our work:
+Our work
 %
 (1) demonstrates the viability of byte models with subword-like inference speedups, and
 %
@@ -36,7 +36,7 @@ Our work:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %-TG: Mechanistic interpretability w/ Sasha, Hendrik.
-\paragraph{Recurrence in hybrid models.}
+\paragraph{Role of recurrence in hybrid models.}
 
 In this work with Hendrik~Strobelt and Prof.~Sasha~Rush, I am investigating the role of recurrence in RecurrentGemma-$9$B, a hybrid model that combines local attention with linear recurrence.
 %
@@ -70,7 +70,7 @@ Our experiments show that large generative models (e.g., GPT-$4$o) struggle with
 %
 In contrast, smaller recurrent and bidirectional models perform more effectively, demonstrating their strength in continuous context analysis.
 %
-We also explored:
+We also explored
 %
 (1) Simulating future conversational paths: At each timestep, we sampled multiple next utterances and found low variability in their predictions, suggesting that models struggle to capture diverse outcomes.
 %

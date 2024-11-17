@@ -1,8 +1,8 @@
-%-TG: sop.cls
+%-TG: statement.cls
 %-TG: author: Tushaar Gangavarapu
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{sop}[2024/09/14 LaTeX class for typesetting statements for college applications]
+\ProvidesClass{statement}[2024/09/14 LaTeX class for typesetting statements for college applications]
 
 %-TG: "final" option removes debugging comments, colored phrases, etc.
 \newif\ifdraft\drafttrue
@@ -13,6 +13,9 @@
 \DeclareOption{cmr}{\cmrtrue}
 \newif\ifhelvet\helvetfalse
 \DeclareOption{helvet}{\helvettrue}
+
+\newif\ifboldauth\boldauthfalse
+\DeclareOption{boldauth}{\boldauthtrue}
 
 \ProcessOptions\relax
 
@@ -52,7 +55,7 @@
 \renewcommand\section{\@startsection{section}{1}{\z@}%
     {-1.5ex \@plus -1ex \@minus -.2ex}%-TG: spacing before sec title
     {1ex \@plus.2ex}%-TG: spacing after title
-    {\normalfont\bfseries}%-TG: font style
+    {\normalsize\bfseries}%-TG: font style
 }
 
 %-TG: custom date format: mm/dd/yyyy ({hh}.{mm}am/pm).
@@ -92,7 +95,14 @@
 %-TG: bibliography.
 \RequirePackage{multicol}
 \RequirePackage[round]{natbib}  %-TG: load with "round" brackets
-\bibliographystyle{abbrvnat}
+%-TG: bold author name (if cls is loaded with "boldauth" option).
+%-TG: see: https://tex.stackexchange.com/a/33379.
+\ifboldauth%
+    \bibliographystyle{abbrvnat_boldauth}%
+    \RequirePackage{xstring}%
+\else%
+    \bibliographystyle{abbrvnat}%
+\fi
 \RequirePackage{xurl}  %-TG: to break bib urls more gracefully
 
 \RequirePackage{enumitem}
@@ -109,6 +119,20 @@
     linkcolor=darkblue,
     urlcolor=darkblue
 ]{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-TG: bold author lastname.
+\newcommand{\@boldauthlastname}{}  %-TG: default
+\newcommand{\boldauthlastname}[1]{\renewcommand{\@boldauthlastname}{#1}}
+
+%-TG: command to highlight author names in bibliography
+%-TG: see: https://tex.stackexchange.com/a/33379.
+\def\boldauthname#1{%
+    \IfSubStr{#1}{\@boldauthlastname}{%
+        \textcolor{\draftcolor}{\textbf{#1}}%
+    }{#1}%
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -250,21 +274,42 @@
 %-TG: Command to reference professors by index; e.g., `\prof{1}`.
 \newcommand{\prof}[1]{\textcolor{\draftcolor}{\csname prof#1\endcsname}}
 
-%-TG: school-specific details, often included after motivation/background.
-\newcommand{\@collegespecificinfo}{%
+%-TG: school-specific details, often included after motivation/background for *SOP*.
+\newcommand{\@collegespecificsop}{%
     \ifdraft%
-        \texttt{\textbackslash collegespecificinfo}%
+        \texttt{\textbackslash collegespecificsop}%
     \fi
 }  %-TG: default
-\newcommand{\collegespecificinfo}[1]{\renewcommand{\@collegespecificinfo}{#1}}
-\newcommand{\thecollegespecificinfo}{%
+\newcommand{\collegespecificsop}[1]{\renewcommand{\@collegespecificsop}{#1}}
+\newcommand{\thecollegespecificsop}{%
     \textcolor{\draftcolor}{
-        \ifx\@collegespecificinfo\empty%
+        \ifx\@collegespecificsop\empty%
             \ifdraft%
-                WARN: \texttt{\textbackslash collegespecificinfo} empty.%
+                WARN: \texttt{\textbackslash collegespecificsop} empty.%
             \fi
         \else%
-            \@collegespecificinfo\par\xspace
+            \@collegespecificsop\par\xspace
+        \fi
+    }\xspace%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-TG: school-specific details, often included after motivation/background for *personal statement*.
+\newcommand{\@collegespecificpersonal}{%
+    \ifdraft%
+        \texttt{\textbackslash collegespecificpersonal}%
+    \fi
+}  %-TG: default
+\newcommand{\collegespecificpersonal}[1]{\renewcommand{\@collegespecificpersonal}{#1}}
+\newcommand{\thecollegespecificpersonal}{%
+    \textcolor{\draftcolor}{
+        \ifx\@collegespecificpersonal\empty%
+            \ifdraft%
+                WARN: \texttt{\textbackslash collegespecificpersonal} empty.%
+            \fi
+        \else%
+            \@collegespecificpersonal\par\xspace
         \fi
     }\xspace%
 }
@@ -345,12 +390,14 @@
 \renewenvironment{thebibliography}[1]{%
     %-TG: Don't explicitly clear the page.
     % \clearpage%
+    \setlength{\columnsep}{2em}
     \begin{multicols}{2}[\section*{\refname}]%
         \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
         \list{\@biblabel{\@arabic\c@enumiv}}{%
             \settowidth\labelwidth{\@biblabel{#1}}%
-            \leftmargin\labelwidth
-            \advance\leftmargin\labelsep
+            % \leftmargin\labelwidth
+            % \advance\leftmargin\labelsep
+            \leftmargin 0pt  %-TG: set left margin to zero
             \@openbib@code
             \usecounter{enumiv}%
             \let\p@enumiv\@empty

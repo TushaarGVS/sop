@@ -1,6 +1,13 @@
-%-TG: options: "final"
-%-TG: options: "cmr", "helvet"
-\documentclass[]{statement}
+%-TG: File: personal_statement.tex
+%-TG: Author: Tushaar Gangavarapu
+%-TG: See `sop/README.txt` or `sop/sop.tex` for documentation.
+
+\documentclass[
+    % final,
+    boldauth,
+    % cmr,
+    % helvet,
+]{statement}\documentclass[]{statement}
 
 \input{config/imports}
 \input{config/commands}
@@ -16,10 +23,14 @@
 \begin{document}
 \maketitle
 
+\input{personal_statement/barebones/experiences}
+\input{personal_statement/barebones/teaching}
 \input{personal_statement/barebones/dei}
 
 \thecollegespecificpersonal
 
+\clearpage
+\input{personal_statement/barebones/acks}
 \bibliography{references}
 
 \end{document}

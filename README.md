@@ -20,34 +20,47 @@ Available options:
 Once you load the class, you can set program-specific variables as such (also see: `schools/README.md`):
 
 ```tex
-\college{Massachusetts Institute of Technology}  %-TG: sets `\thecollege`
-\collegeabbr{MIT}  %-TG: sets `\thecollegeabbr`
-\dept{Electrical Engineering and Computer Science}  %-TG: sets `\thedept`
-\deptabbr{EECS (CSAIL)}  %-TG: sets `\thedeptabbr`
-\degree{PhD}  %-TG: sets `\thedegree`
+\college{Cornell University}    %-TG: sets `\thecollege`
+\collegeabbr{Cornell}           %-TG: sets `\thecollegeabbr`
+\dept{Computer Science}         %-TG: sets `\thedept`
+\deptabbr{CS}                   %-TG: sets `\thedeptabbr`
+\degree{PhD}                    %-TG: sets `\thedegree`
 
-%-TG: sets `\theprofs` to be "Prof. Yoon Kim and Prof. Jacob Andreas".
-%-TG: individual profs can be accessed using `\prof{<idx>}` (e.g., `\prof{1}`).
-\profs{Yoon~Kim, Jacob~Andreas}
+%-TG: Sets `\theprofs` to be "Prof. Sasha~Rush and Prof. Cristian~Danescu-Niculescu-Mizil".
+%-TG: Individual profs can be accessed using `\prof{<idx>}` (e.g., `\prof{1}` for "Prof. Sasha Rush").
+\profs{Sasha~Rush, Cristian~Danescu-Niculescu-Mizil}
 
-%-TG: set college-specific info for *SOP*.
+%-TG: Set college-specific info for *SOP*.
 \collegespecificsop{
-    At \collegeabbr \deptabbr, I wish to work with \theprofs. \prof{1} does [...].
+    At \thecollegeabbr \thedeptabbr, I wish to work with \theprofs.
+    \prof{1} works on alternate-attention models.
+    \prof{2} works on conversational forecasting.
 }
 
 %-TG: set college-specific info for *personal statement*.
-\collegespecificpersonal{}
+\collegespecificpersonal{
+    My teaching experiences shaped my research agenda and vice versa.
+}
 ```
 
-Once set, you can use the variables as `\thecollege`, `\thecollegeabbr`, `\thedept`, `\thedeptabbr`, `\thedegree`, `\theprofs` (and `\prof{<idx>}`), and `\thecollegespecificinfo`. If the abbreviations (e.g., `collegeabbr` and `deptabbr`) are unset, the associated variables default to their unabbreviated values.
+Once set, you can use the variables using:
+
+- `\thecollege` (and `\thecollegeabbr`),
+- `\thedept` (and `\thedeptabbr`),
+- `\thedegree`,
+- `\theprofs` (and `\prof{<idx>}`), and
+- `\thecollegespecificinfo`.
+
+When the abbreviations (`\collegeabbr{}` and `\deptabbr{}`) are unset, the associated variables default to their unabbreviated values (i.e., `\thecollegeabbr = \thecollege` and `\thedeptabbr = \thedept`).
 
 ### Setting acknowledgments
 
-Finally, use `\acks` to typeset acknowledgments: the command automatically ignores printing "Acknowledgments" section name when the input is empty.
+Finally, use `\acks{}` to typeset acknowledgments: the command automatically ignores printing "Acknowledgments" section name when the input is empty.
 
 ## Additional commands
 
 See `config/commands.tex`:
+
 - `\furl{}`: footnote hyperlink.
 - `\rrule`: right rule (similar to footnoterule, but to the right of the page).
 

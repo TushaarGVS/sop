@@ -1,0 +1,7 @@
+Sorry for the late reply tushaar sir, really amazing sop with all these citations I'm not sure if I understand 5% of it.
+
+- From my perspective the only concern I have is that, although I get you are gonna focusing on model efficiency which is really cool, but you didn't mention anything related to downstream tasks/applications you may do with your focuses (like high inference cost for GPT-4o and stuff), which I think your focus could solve. 
+
+- My guess is that this could help broaden what you can do with your researches (maybe the profs would care, IDK). And I think you have the experiences both in model efficiency (MambaByte etc.) and applications (forecasting and others) which could be a really cool point! Of course model efficiency would be your central focus
+
+- Also this citation (Jalassi et al. (2024)) doesn't align with others

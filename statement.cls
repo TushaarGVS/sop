@@ -30,7 +30,7 @@
 \LoadClass[12pt,onecolumn]{article}
 \RequirePackage[%
     a4paper,%
-    top=0.95in,bottom=0.5in,%
+    top=0.95in,bottom=0.48in,%
     left=0.8in,right=0.8in,%
     showframe=False,%
 ]{geometry}

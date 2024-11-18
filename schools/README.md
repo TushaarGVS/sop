@@ -17,5 +17,5 @@ The following commands set `\the<cmd>` (e.g., `\theprofs`) variables:
 
 ## School-specific info
 
-* Set SOP school-specific info using `\collegespecificsop{}`.
-* Set personal statement school-specific info using `\collegespecificpersonal{}`.
+- Set SOP school-specific info using `\collegespecificsop{}`.
+- Set personal statement school-specific info using `\collegespecificpersonal{}`.

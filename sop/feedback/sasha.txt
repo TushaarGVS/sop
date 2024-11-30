@@ -1,0 +1,4 @@
+- Research statement is a bit casual. I think you can include the technical parts.
+    - Start with the goals, then get to the technical methodology, i.e. first paragraph what are you trying to do, then, how are you trying to do it
+
+- I think you need a slightly higher level introduction about what you are interested in. Remember, you sould like to be admitted to places that might be interested in a broader set of topics than just Linear RNNs.

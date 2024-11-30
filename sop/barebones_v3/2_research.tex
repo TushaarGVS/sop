@@ -1,0 +1,86 @@
+%-SR: Start with the goals, then get to the technical methodology, i.e. first paragraph what are you trying to do, then, how are you trying to do it.
+
+I am drawn to these problems based on my research experiences, which are summarized below.
+
+%-TG: MambaByte work w/ Sasha.
+\paragraph{MambaByte: Efficient byte-level sequence modeling.}
+%
+In this work with Prof.~Sasha~Rush \citep{wang_mambabyte_2024}, we develop a computationally-efficient model for byte-level language modeling.
+% 
+Byte-level models offer robustness to noise and support multimodal and multilingual applications.
+% 
+However, byte sequences are $4\times$ longer than their subword counterparts, introducing significant computational challenges that shift the burden of efficiency and modeling onto the architecture itself.
+
+To address these issues, we propose MambaByte, a byte-level extension of the Mamba recurrence.
+% 
+Mamba uses a large fixed-size hidden memory, achieving linear-time compute during training and constant memory at inference.
+% 
+This design is particularly well-suited to byte-level modeling, as it encapsulates the equivalence in information content between byte and subword representations while accommodating the unique demands of byte-level sequences.
+% 
+Mamba also facilitates compute-efficient training through parallel associative scans, enabling effective handling of longer sequences.
+%
+However, byte-level inference remains $4\times$ slower since output is generated one byte at a time.
+
+To overcome this limitation, we implemented a speculative decoding strategy that combines a small Mamba subword model for draft generation with MambaByte for verification and correction.
+% 
+A naive implementation of this incurs high overhead by requiring all hidden states to be stored in HBM for restarts from corrected bytes.
+%
+To mitigate this, we extended the CUDA kernel to perform two parallel scans: one to locate the correction point and another to retrieve the corresponding verifier hidden state.
+%
+This allowed MambaByte to achieve inference speeds comparable to subword models, making byte-level language modeling both practical and efficient.
+
+Through extensive experiments, we benchmarked MambaByte against other byte-level and subword models in compute-matched and parameter-matched settings.
+% 
+Our findings show that MambaByte effectively handles significantly long byte sequences, outperforming patched models and many subword alternatives. 
+% 
+Speculative decoding further enhances inference speed, demonstrating the feasibility of byte-level generation in real-world scenarios.
+% 
+Lastly, MambaByte exhibits strong generalization beyond its training context, making it particularly suited for long-context modeling tasks.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-TG: Mechanistic interpretability w/ Sasha, Hendrik.
+\paragraph{Mechanistic insights into recurrent memory.}
+% 
+Motivated by the impressive length-extrapolation abilities of MambaByte, in this work with Hendrik~Strobelt and Prof.~Sasha~Rush, we investigate their memory compression mechanisms.
+% 
+Understanding these mechanisms could help design more efficient architectures.
+
+We focus on RecurrentGemma, a hybrid model excelling at long-context tasks.
+% 
+Using sparse autoencoders, we identify features that span long contexts, shedding light on how information is stored and retrieved.
+% 
+Despite the autoencoder not being trained for recurrence, we found that over $5\%$ of $131$K features spanned multiple tokens, with the longest span covering $8,170$ tokens---more than $3\times$ the local attention window.
+% 
+Additionally, specific tokens, such as ``\$,'' promote different spanning behaviors in LaTeX and code contexts.
+
+With evidence of spanning features, we further investigated the specific information stored in the recurrent memory.
+% 
+Certain features activated upon encountering a passkey and remained active until retrieval, providing a more nuanced understanding of memory compression in long-context retrieval.
+% 
+Although preliminary, these findings provide valuable insights for designing future models, particularly by enhancing the promotion of spanning features to improve long-context memory.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-TG: CGA-CMV work w/ Cristian.
+\paragraph{Conversational forecasting: Modeling long-context dynamics.}
+% 
+In my research with Prof.~Jonathan~Chang and Prof.~Cristian~Danescu-Niculescu-Mizil, I investigate conversational forecasting \citep{chang_trouble_2019}: predicting when a conversation may escalate into a personal attack.
+%
+This task is challenging as it requires understanding multi-turn conversational dynamics and efficiently modeling lengthy contexts---a limitation for standard Transformers.
+%
+Moreover, real-time predictions with each new reply require minimizing repeated computations as the context grows, further emphasizing the need for efficiency.
+
+Our experiments show that large generative models (e.g., GPT-$4$o) struggle with this task, even with full context.
+%
+In contrast, smaller recurrent and bidirectional models perform more effectively, demonstrating their strength in continuous context analysis.
+%
+We also explored
+%
+(1) Simulating future conversational paths: At each timestep, we sampled multiple next utterances and found low variability in their predictions, suggesting that models struggle to capture diverse outcomes.
+%
+As the conversation lengthened, these simulations increasingly resembled the nearest past utterances, highlighting limitations in long-context processing.
+%
+(2) Understanding model behavior: Attention often failed to provide meaningful explanations, especially as the context length increased.
+%
+These findings highlight the need for models that can better handle long-range context dynamics.

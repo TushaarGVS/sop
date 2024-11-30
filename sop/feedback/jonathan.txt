@@ -14,3 +14,18 @@ More details are in the annotations and I encourage you to read them, but here a
 3. I really appreciate the bit about your passion for teaching...but right now it feels very awkwardly positioned (since the paragraphs directly before and after it are about research, it ends up feeling like a weird tangent). Perhaps a more natural place for it is earlier in the statement, since that's when you are more in the mode of saying things about yourself
 
 My other bit of advice is to make sure to get feedback from as many people as possible. Everyone brings different perspectives and may have different ways to improve the statement (which can sometimes contradict each other, but that's neither here nor there)
+
+--
+
+I can definitely see the difficulty here! I don't know that I necessarily have a super neat solution to this (in the job application world, the "solution" is to have the teaching statement be separate, but no such standard exists in PhD application world :))
+
+I'd say that you're kind of between a rock and a hard place; it seems to me that the positioning of the teaching paragraph feels out of place either way (i.e., either in its current position or in its original position from the previous draft)
+
+One imperfect solution I just thought of: perhaps the way to go here is to use top-level headers to literally separate the statement into a section on research and a section on teaching
+
+For this to work, the teaching bit would probably need to be slightly fleshed out, otherwise it would feel like "why is this guy dedicating a whole section for like 3 sentences"
+
+But one way it could get fleshed out is if you mentioned a few courses you'd like to teach at that specific university
+(which also has the side benefit of showing the admissions committee that you've done your due diligence in looking into their curriculum and program)
+
+But of course, this too has a space cost, so I'm not sure if you'd have room to pull it off

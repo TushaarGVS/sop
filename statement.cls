@@ -27,10 +27,10 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\LoadClass[12pt,onecolumn]{article}
+\LoadClass[11pt,onecolumn]{article}
 \RequirePackage[%
     a4paper,%
-    top=0.95in,bottom=0.48in,%
+    top=0.95in,bottom=0.6in,%
     left=0.8in,right=0.8in,%
     showframe=False,%
 ]{geometry}

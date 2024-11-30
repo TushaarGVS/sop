@@ -1,0 +1,33 @@
+%-SR: I think you need a slightly higher level introduction about what you are interested in. Remember, you sould like to be admitted to places that might be interested in a broader set of topics than just Linear RNNs.
+Are Transformers the endgame?\footnote{Sasha's ``Transformers in 2027'' bet: \url{https://www.isattentionallyouneed.com}.}
+%
+While their dominance is undeniable, I view them as a significant stage in the broader evolution of models.
+% 
+Their quadratic complexity during training and linear cache growth at inference pose significant challenges, particularly for models employing implicit chain-of-thought (CoT) with stepwise internalization.
+% 
+While advances like Flash-$\ast$ algorithms \citep{fu_flashfftconv_2023,shah_flashattention-3_2024} and compute-optimal training \citep{muennighoff_scaling_2023} have mitigated pretraining inefficiencies, scaling to ultra-long contexts during inference (e.g., $100$M tokens\footnote{Proprietary approaches like LTM-$2$-mini's \textit{sequence-dimension algorithm} offer glimpses of future possibilities but remain opaque: \url{https://magic.dev/blog/100m-token-context-windows}.}) remains impractical, even with optimizations such as speculative decoding and KV-cache quantization.
+
+Linear-recurrence models provide a compelling alternative, but their expressivity and robustness require further study.
+% 
+Recent efforts on distilling Transformers into recurrent architectures \citep{zhang_hedgehog_2024,wang_mamba_2024,zhang_lolcats_2024,bick_transformers_2024}, are promising but raise critical questions:
+%
+Do these distilled models inherit the limitations of their base models, particularly in handling long contexts?
+% 
+How expressive can they be given the constraints of fixed-size hidden memory \citep{jelassi_repeat_2024}?
+% 
+On the architectural front, models like the Based model \citep{arora_simple_2024}, which combine linear attention with sliding-window mechanisms, show potential for enhancing long-context capabilities.
+% 
+However, their performance in long-context retrieval tasks (e.g., needle-in-a-haystack, passkey) remains underexplored.
+% 
+For instance, in our experiments, RecurrentGemma-$9$B---a moderately-sized model with a $4,096$-dimensional hidden state and a $2,048$-token local attention window---struggles beyond $4\times$ its local window size on retrieval tasks.
+
+My research spans a broader focus: \textit{advancing efficient, scalable architectures for long-context language tasks}.
+% 
+Specifically, I aim to:
+\begin{enumerate}[itemsep=-2pt, topsep=-1pt] 
+    \item analyze the Pareto frontier of context length vs. associative recall across varying hidden-state capacities,
+    % 
+    \item design models that dynamically scale memory while reducing token storage redundancy.
+\end{enumerate}
+
+Through these efforts, I aim to uncover the limitations of current architectures and push the frontier of long-context modeling.

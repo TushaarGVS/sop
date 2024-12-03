@@ -5,7 +5,7 @@ I am drawn to these problems based on my research experiences, which are summari
 %-TG: MambaByte work w/ Sasha.
 \paragraph{MambaByte: Efficient byte-level sequence modeling.}
 %
-In this work with Prof.~Sasha~Rush \citep{wang_mambabyte_2024}, we develop a computationally-efficient model for byte-level language modeling.
+In this work with Prof.~Sasha~Rush \citep{wang_mambabyte_2024}, we develop a computationally efficient model for byte-level language modeling.
 % 
 Byte-level models offer robustness to noise and support multimodal and multilingual applications.
 % 
@@ -13,13 +13,13 @@ However, byte sequences are $4\times$ longer than their subword counterparts, in
 
 To address these issues, we propose MambaByte, a byte-level extension of the Mamba recurrence.
 % 
-Mamba uses a large fixed-size hidden memory, achieving linear-time compute during training and constant memory at inference.
+Mamba uses a large fixed size memory, achieving linear-time compute during training and constant memory at inference.
 % 
-This design is particularly well-suited to byte-level modeling, as it encapsulates the equivalence in information content between byte and subword representations while accommodating the unique demands of byte-level sequences.
+This is particularly well-suited to byte-level modeling, as it encapsulates the equivalence in information content between byte and subword representations while accommodating the unique demands of byte-level sequences.
 % 
-Mamba also facilitates compute-efficient training through parallel associative scans, enabling effective handling of longer sequences.
+Mamba also facilitates compute-efficient training through parallel scans, enabling effective handling of longer sequences.
 %
-However, byte-level inference remains $4\times$ slower since output is generated one byte at a time.
+However, byte-level inference remains $4\times$ slower since the output is generated one byte at a time.
 
 To overcome this limitation, we implemented a speculative decoding strategy that combines a small Mamba subword model for draft generation with MambaByte for verification and correction.
 % 
@@ -56,9 +56,9 @@ Additionally, specific tokens, such as ``\$,'' promote different spanning behavi
 
 With evidence of spanning features, we further investigated the specific information stored in the recurrent memory.
 % 
-Certain features activated upon encountering a passkey and remained active until retrieval, providing a more nuanced understanding of memory compression in long-context retrieval.
+Certain features activated upon encountering a passkey and remained active until retrieval, providing a more nuanced view of the memory compression in long-context retrieval.
 % 
-Although preliminary, these findings provide valuable insights for designing future models, particularly by enhancing the promotion of spanning features to improve long-context memory.
+Although preliminary, these findings provide valuable insights in designing future models, particularly promoting spanning features to improve long-context memory.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

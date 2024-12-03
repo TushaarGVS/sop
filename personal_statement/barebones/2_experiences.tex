@@ -1,2 +1,36 @@
 %-TG: discussions with Junxiong on "what to do next?"
 %-TG: from Cristian (forecasting) to Lillian to Bindel (assignment + togepi stuff) to Sasha (RNN models)
+
+\paragraph{Research experiences.}
+% 
+My past research has steadily shaped my goal of advancing efficient, scalable models for long-context language tasks.
+% 
+During my undergraduate studies, I explored NLP applications in healthcare analytics, investigating how language models can extract meaningful insights from unstructured medical notes.
+% 
+This work sparked my interest in practical NLP applications and their potential for real-world impact.
+
+In my Master’s, I worked with Prof.~Jonathan~Chang and Prof.~Cristian~Danescu-Niculescu-Mizil on forecasting when conversations might escalate into personal attacks.
+% 
+This required processing one utterance at a time while simulating multiple conversational trajectories to quantify uncertainty, significantly increasing computational costs with traditional Transformers.
+% 
+This experience highlighted the need for alternate-attention models capable of efficiently handling long-contexts, motivating my subsequent research.
+
+A pivotal moment came during a course on Numerical Analysis, where I modeled token mixing via Toeplitz matrices and Fourier transforms.
+% 
+The computational efficiency of these approaches struck me, and although I was unaware at the time, they were closely related to emerging work such as S$4$ \citep{gu_efficiently_2022} and the Toeplitz network \citep{qin_toeplitz_2023}.
+% 
+This inspired me to explore alternate-attention approaches in my research.
+
+Later, in discussions with Prof.~Sasha~Rush, I was introduced to recent developments in linear RNN models.
+% 
+This led to a collaboration with Junxiong~Wang and Jing~Nathan~Yan on byte-level modeling, using Mamba as the foundation.
+%
+Through iterative experiments, we developed MambaByte, a model that outperformed previous Transformer alternatives.
+% 
+With MambaByte's impressive ability to generalize across longer contexts, a critical question arose:
+% 
+What does this model store in its fixed-state memory that enables generalization beyond its training length?
+% 
+Along with Johannes~Knittel, Hendrik~Strobelt, and Prof.~Sasha~Rush, I explored the memory of these linear RNN models using sparse autoencoders to understand the underlying compression mechanism.
+
+These experiences, particularly with hybrid models and long-range dependencies, have informed my desire to build systems that can reason effectively across extended contexts while maintaining efficiency.

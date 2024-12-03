@@ -3,7 +3,7 @@
 %-TG: See `sop/README.txt` or `sop/sop.tex` for documentation.
 
 \documentclass[
-    % final,
+    final,
     boldauth,
     % cmr,
     % helvet,
@@ -12,11 +12,15 @@
 \input{config/imports}
 \input{config/commands}
 
-\title{}
+\title{\textit{You} think, therefore \textit{I} am!\footnote{You [human] think, therefore I [LLM] am!} (A \underline{personal statement} of experiences)
+}
 
 \author{Tushaar Gangavarapu}
 \email{TG352@cornell.edu}
 \boldauthlastname{Gangavarapu}
+
+% \input{schools/01_mit}
+\input{schools/03_stanford}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -26,11 +30,13 @@
 \input{personal_statement/barebones/1_why_nlp}
 \input{personal_statement/barebones/2_experiences}
 \input{personal_statement/barebones/3_teaching}
-\input{personal_statement/barebones/4_dei}
+
+\rrule  %-TG: right rule
+\input{personal_statement/barebones/4_conclusion}
 
 \thecollegespecificpersonal
 
-\clearpage
+% \clearpage
 \input{personal_statement/barebones/acks}
 \bibliography{references}
 

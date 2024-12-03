@@ -3,7 +3,7 @@ Are Transformers the endgame?\footnote{Sasha's ``Transformers in 2027'' bet: \ur
 %
 While their dominance is undeniable, I view them as a significant stage in the broader evolution of models.
 % 
-Their quadratic complexity during training and linear cache growth at inference pose significant challenges, particularly for models employing implicit chain-of-thought (CoT) with stepwise internalization.
+Their quadratic complexity during training and linear cache growth at inference pose significant challenges, particularly for models employing implicit chain-of-thought (CoT) reasoning with stepwise internalization.
 % 
 While advances like Flash-$\ast$ algorithms \citep{fu_flashfftconv_2023,shah_flashattention-3_2024} and compute-optimal training \citep{muennighoff_scaling_2023} have mitigated pretraining inefficiencies, scaling to ultra-long contexts during inference (e.g., $100$M tokens\footnote{Proprietary approaches like LTM-$2$-mini's \textit{sequence-dimension algorithm} offer glimpses of future possibilities but remain opaque: \url{https://magic.dev/blog/100m-token-context-windows}.}) remains impractical, even with optimizations such as speculative decoding and KV-cache quantization.
 
